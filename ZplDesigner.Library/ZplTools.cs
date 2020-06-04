@@ -43,19 +43,10 @@ namespace ZplDesigner.Library
             "zX", "zY"
         };
 
-        private readonly int _length;
-        private readonly int _width;
+        
 
         public ZplTools()
         {
-            _length = 1200;
-            _width = 800;
-        }
-
-        public ZplTools(int length, int width)
-        {
-            _length = length;
-            _width = width;
         }
 
         // // This generates the above array.
@@ -101,14 +92,14 @@ namespace ZplDesigner.Library
             var widthBytes = GetImageWidthInBytes(bmp);
             var total = widthBytes * bmp.Height;
             var body = ConvertBitmapToHex(bmp, out previewBmp, ditheringLevel);
-            return "^XA^FO0,0" // Start of header
+            return "^XA\r\n^FO0,0" // Start of header
                    +
                    string.Join(',', "^GFA", total, total, widthBytes) +
                    "," // Graphic line declaration
                    +
                    CompressHex(body, widthBytes) // Hex body compressed
                    +
-                   "^FS^XZ"; // closing
+                   "^FS\r\n^XZ"; // closing
         }
 
         private unsafe string ByteArrayToHex(byte[] bytes)
