@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RawPrinterUtilitiesLibrary\RawPrinterUtilitiesLibrary.csproj" />
     <ProjectReference Include="..\ZplDesigner.Library\ZplDesigner.Library.csproj" />
   </ItemGroup>
 

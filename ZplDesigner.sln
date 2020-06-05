@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZplDesigner.Library", "ZplDesigner.Library\ZplDesigner.Library.csproj", "{882DB34C-68C1-4D1E-AC2B-4A59840FB64F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZplDesigner.Desktop", "ZplDesigner.Desktop\ZplDesigner.Desktop.csproj", "{563C449F-06E0-4308-A15D-51DC72BBE78E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZplDesigner.Desktop", "ZplDesigner.Desktop\ZplDesigner.Desktop.csproj", "{563C449F-06E0-4308-A15D-51DC72BBE78E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RawPrinterUtilitiesLibrary", "RawPrinterUtilitiesLibrary\RawPrinterUtilitiesLibrary.csproj", "{1FFA4045-AA29-4E43-BA82-18A4B3C0C6E2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{563C449F-06E0-4308-A15D-51DC72BBE78E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{563C449F-06E0-4308-A15D-51DC72BBE78E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{563C449F-06E0-4308-A15D-51DC72BBE78E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FFA4045-AA29-4E43-BA82-18A4B3C0C6E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FFA4045-AA29-4E43-BA82-18A4B3C0C6E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FFA4045-AA29-4E43-BA82-18A4B3C0C6E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FFA4045-AA29-4E43-BA82-18A4B3C0C6E2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

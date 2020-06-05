@@ -42,8 +42,42 @@
             <Image x:Name="OriginalImage" Grid.Column="0"/>
             <Image x:Name="ReferenceImage" Grid.Column="1"/>
         </Grid>
-        <TextBox Grid.Row="2" VerticalContentAlignment="Top"
-                 TextWrapping="Wrap"
-                 x:Name="ZplText"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer DockPanel.Dock="Top">
+                    <TextBox VerticalContentAlignment="Top"
+                             TextWrapping="Wrap"
+                             x:Name="HtmlText"/>
+                </ScrollViewer>
+                <Button Grid.Row="1" Content="RENDER HTML" Click="RenderHtml_OnClick"
+                        HorizontalAlignment="Right"/>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ScrollViewer  Grid.Row="0">
+                    <TextBox VerticalContentAlignment="Top"
+                             TextWrapping="Wrap"
+                             x:Name="ZplText"/>
+                </ScrollViewer>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+                    <TextBlock Text="SELECT ZPL PRINTER: "/>
+                    <ComboBox IsEditable="False" MinWidth="150" x:Name="PrinterList" SelectionChanged="PrinterList_OnSelectionChanged"></ComboBox>
+                    <Button Content="PRINT" Click="Print_OnClick"
+                            HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Grid>
+            
+        </Grid>
     </Grid>
 </Window>

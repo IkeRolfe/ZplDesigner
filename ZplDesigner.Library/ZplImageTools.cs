@@ -7,7 +7,7 @@ using System.Text;
 
 namespace ZplDesigner.Library
 {
-    public class ZplTools
+    public static class ZplImageTools
     {
         private const int BLACK_LIMIT = 155;
         private static readonly uint[] Lookup32Unsafe = CreateHexLookup();
@@ -43,12 +43,6 @@ namespace ZplDesigner.Library
             "zX", "zY"
         };
 
-        
-
-        public ZplTools()
-        {
-        }
-
         // // This generates the above array.
         // private static string[] CreateHexCompressionMapping()
         // {
@@ -83,7 +77,7 @@ namespace ZplDesigner.Library
             return result;
         }
 
-        public string BuildLabel(Bitmap bmp, out Bitmap previewBmp, int scale, int ditheringLevel = 0)
+        public static string BuildLabel(Bitmap bmp, out Bitmap previewBmp, int scale, int ditheringLevel = 0)
         {
             if (scale != 100)
             {
@@ -102,7 +96,7 @@ namespace ZplDesigner.Library
                    "^FS\r\n^XZ"; // closing
         }
 
-        private unsafe string ByteArrayToHex(byte[] bytes)
+        private static unsafe string ByteArrayToHex(byte[] bytes)
         {
             var lookupP = Lookup32UnsafeP;
             var result = new char[bytes.Length * 2];
@@ -117,7 +111,7 @@ namespace ZplDesigner.Library
         }
 
 
-        private Bitmap ScaleBitmap(Image image, int scalePercent)
+        private static Bitmap ScaleBitmap(Image image, int scalePercent)
         {
             var width = scalePercent * image.Width / 100;
             var height = scalePercent * image.Height / 100;
@@ -130,7 +124,7 @@ namespace ZplDesigner.Library
             return bitmap;
         }
 
-        private int GetImageWidthInBytes(Bitmap originalImage)
+        private static int GetImageWidthInBytes(Bitmap originalImage)
         {
             var width = originalImage.Width;
             int widthBytes;
@@ -141,7 +135,7 @@ namespace ZplDesigner.Library
             return widthBytes;
         }
 
-        private string ConvertBitmapToHex(Bitmap originalImage, out Bitmap previewBitmap, int ditheringLevel)
+        private static string ConvertBitmapToHex(Bitmap originalImage, out Bitmap previewBitmap, int ditheringLevel)
         {
             var index = 0;
             var current = 0b0000_0000;
@@ -158,13 +152,13 @@ namespace ZplDesigner.Library
             var rand = new Random();
 
             for (var h = 1; h < height; h++)
+            {
                 for (var w = 0; w < width; w++)
                 {
                     var rgb = originalImage.GetPixel(w, h);
                     var totalColor = (rgb.R + rgb.G + rgb.B) / 3;
                     if (ditheringLevel > 0)
                     {
-                        
                         var whiteBoundary = 255 - ditheringLevel;
                         var blackBoundary = ditheringLevel;
                         if (totalColor < whiteBoundary)
@@ -185,12 +179,11 @@ namespace ZplDesigner.Library
                     {
                         current |= 1 << index;
                         //update preview
-                        previewBitmap.SetPixel(w,h, Color.Black);
+                        previewBitmap.SetPixel(w, h, Color.Black);
                     }
-                        
-                    
+
                     index--;
-                    
+
                     if (index == -1 || w == width - 1)
                     {
                         bytes[i] = (byte)current;
@@ -201,11 +194,13 @@ namespace ZplDesigner.Library
                     }
 
                 }
+            }
+                
             //var bytes = byteList.ToArray();
             return ByteArrayToHex(bytes);
         }
 
-        private string CompressHex(string code, int widthBytes)
+        private static string CompressHex(string code, int widthBytes)
         {
             var maxLineLength = widthBytes * 2;
 
@@ -250,7 +245,7 @@ namespace ZplDesigner.Library
         }
 
         //Get white bmp for preview
-        private Bitmap DrawFilledRectangle(int x, int y)
+        private static Bitmap DrawFilledRectangle(int x, int y)
         {
             Bitmap bmp = new Bitmap(x, y);
             using (Graphics graph = Graphics.FromImage(bmp))

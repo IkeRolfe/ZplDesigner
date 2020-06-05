@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,6 +17,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using ZplDesigner.Library;
+using RawPrinterUtilitiesLibrary;
+using Label = RawPrinterUtilitiesLibrary.Label;
 
 namespace ZplDesigner.Desktop
 {
@@ -27,19 +30,23 @@ namespace ZplDesigner.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            _labelSpooler = new LabelSpooler();
+            PrinterList.ItemsSource = _labelSpooler.GetAvailablePrinters();
         }
 
-        private ZplImageConverter _zplImageConverter;
+        private ZplImage _zplImage;
+        private LabelSpooler _labelSpooler;
 
         private void LoadImage_OnClick(object sender, RoutedEventArgs e)
         {
+            //TODO custom open file dialog
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            if (openFileDialog.ShowDialog() == true)
-            {
-                _zplImageConverter = new ZplImageConverter(openFileDialog.FileName);
+            //TODO: handle file type errors
+            if (openFileDialog.ShowDialog() == true) {
+                //Send file stream
+                _zplImage = new ZplImage(openFileDialog.OpenFile());
                 RenderZplImage();
             }
-                
         }
 
         private void Render_OnClick(object sender, RoutedEventArgs e)
@@ -56,7 +63,7 @@ namespace ZplDesigner.Desktop
 
         private void RenderZplImage(int ditheringLevel = 0)
         {
-            if (_zplImageConverter == null)
+            if (_zplImage == null)
             {
                 return;
             }
@@ -65,8 +72,8 @@ namespace ZplDesigner.Desktop
             {
                 scale = 100;
             }
-            OriginalImage.Source = BitmapToImageSource(_zplImageConverter.OriginalBmp);
-            ZplText.Text = _zplImageConverter.ToZpl(out var previewBmp,scale,ditheringLevel);
+            OriginalImage.Source = BitmapToImageSource(_zplImage.OriginalBmp);
+            ZplText.Text = _zplImage.ToZpl(out var previewBmp,scale,ditheringLevel);
             ReferenceImage.Source = BitmapToImageSource(previewBmp);
         }
 
@@ -84,6 +91,25 @@ namespace ZplDesigner.Desktop
             bitmapimage.EndInit();
 
             return bitmapimage;
+        }
+
+        private void RenderHtml_OnClick(object sender, RoutedEventArgs e)
+        {
+            var html = HtmlText.Text;
+            _zplImage = new ZplImage(html);
+            RenderZplImage();
+        }
+
+        private void Print_OnClick(object sender, RoutedEventArgs e)
+        {
+            _labelSpooler.AddLabel(new Label(ZplText.Text));
+            _labelSpooler.PrintQueue();
+        }
+
+        private void PrinterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var printerName = (string)e.AddedItems[0];
+            _labelSpooler.PrinterName = printerName;
         }
     }
 }
