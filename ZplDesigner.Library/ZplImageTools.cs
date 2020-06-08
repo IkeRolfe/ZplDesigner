@@ -146,12 +146,12 @@ namespace ZplDesigner.Library
             //Round up to the nearest complete bits then covert back
             //Need this to calculate array length since last bit of row may be calculated without 8 pixels
             var bitRoundedWidth = GetImageWidthInBytes(originalImage) * 8;
-            var bytes = new byte[height*bitRoundedWidth/8];
-           // var byteList = new List<byte>();
+            var bytes = new byte[height*bitRoundedWidth/8+1];
+            //var byteList = new List<byte>();
             var i = 0;
             var rand = new Random();
 
-            for (var h = 1; h < height; h++)
+            for (var h = 0; h < height; h++)
             {
                 for (var w = 0; w < width; w++)
                 {
