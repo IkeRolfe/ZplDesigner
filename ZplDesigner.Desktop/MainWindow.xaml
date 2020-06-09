@@ -54,6 +54,7 @@
                 </Grid.RowDefinitions>
                 <ScrollViewer DockPanel.Dock="Top">
                     <TextBox VerticalContentAlignment="Top"
+                             AcceptsReturn="True"
                              TextWrapping="Wrap"
                              x:Name="HtmlText"/>
                 </ScrollViewer>
@@ -67,6 +68,7 @@
                 </Grid.RowDefinitions>
                 <ScrollViewer  Grid.Row="0">
                     <TextBox VerticalContentAlignment="Top"
+                             AcceptsReturn="True"
                              TextWrapping="Wrap"
                              x:Name="ZplText"/>
                 </ScrollViewer>

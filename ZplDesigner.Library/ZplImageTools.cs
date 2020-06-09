@@ -137,7 +137,8 @@ namespace ZplDesigner.Library
 
         private static string ConvertBitmapToHex(Bitmap originalImage, out Bitmap previewBitmap, int ditheringLevel)
         {
-            var index = 0;
+            //Start here so first full line is completed
+            var index = 7;
             var current = 0b0000_0000;
             var height = originalImage.Height;
             var width = originalImage.Width;
@@ -146,6 +147,7 @@ namespace ZplDesigner.Library
             //Round up to the nearest complete bits then covert back
             //Need this to calculate array length since last bit of row may be calculated without 8 pixels
             var bitRoundedWidth = GetImageWidthInBytes(originalImage) * 8;
+            //Not sure where this extra bit comes from
             var bytes = new byte[height*bitRoundedWidth/8+1];
             //var byteList = new List<byte>();
             var i = 0;
