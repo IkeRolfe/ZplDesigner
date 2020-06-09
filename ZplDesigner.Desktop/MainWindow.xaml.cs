@@ -99,5 +99,11 @@ namespace ZplDesigner.Desktop
             var printerName = (string)e.AddedItems[0];
             _labelSpooler.PrinterName = printerName;
         }
+
+        private async void LoadLabelary_OnClick(object sender, RoutedEventArgs e)
+        {
+            var image = await LabelaryClient.GetImage(ZplText.Text);
+            LabelaryImage.Source = BitmapToImageSource(image);
+        }
     }
 }

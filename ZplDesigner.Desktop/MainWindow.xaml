@@ -20,8 +20,8 @@
         </Grid.Resources>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="80*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" HorizontalAlignment="Right" Orientation="Horizontal">
             <Button Content="Load Image" Click="LoadImage_OnClick"></Button>
@@ -44,6 +44,7 @@
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
@@ -79,7 +80,16 @@
                             HorizontalAlignment="Right"/>
                 </StackPanel>
             </Grid>
-            
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="LoadLabelary" Content="LoadFromLabelary" Click="LoadLabelary_OnClick"></Button>
+                <Border BorderThickness="2" BorderBrush="Black" Grid.Row="1" HorizontalAlignment="Left">
+                    <Image x:Name="LabelaryImage"/>
+                </Border>
+            </Grid>
         </Grid>
     </Grid>
 </Window>
