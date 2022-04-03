@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ZplDesigner.Desktop"
+        xmlns:controls="clr-namespace:ZplDesigner.Desktop.Controls"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
@@ -15,7 +16,7 @@
             </Style>
             <Style TargetType="TextBox">
                 <Setter Property="VerticalContentAlignment" Value="Center"/>
-                
+
             </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
@@ -53,14 +54,12 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <ScrollViewer DockPanel.Dock="Top">
-                    <TextBox VerticalContentAlignment="Top"
-                             AcceptsReturn="True"
-                             TextWrapping="Wrap"
-                             x:Name="HtmlText"/>
-                </ScrollViewer>
-                <Button Grid.Row="1" Content="RENDER HTML" Click="RenderHtml_OnClick"
-                        HorizontalAlignment="Right"/>
+                <controls:ZebraPrinterConfigControl Grid.Row="0" x:Name="PrinterConfig"/>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
+                    <TextBlock Text="SELECT ZPL PRINTER: "/>
+                    <ComboBox IsEditable="False" MinWidth="150" x:Name="PrinterList" SelectionChanged="PrinterList_OnSelectionChanged"></ComboBox>
+                </StackPanel>
+
             </Grid>
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
@@ -73,12 +72,8 @@
                              TextWrapping="Wrap"
                              x:Name="ZplText"/>
                 </ScrollViewer>
-                <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Right">
-                    <TextBlock Text="SELECT ZPL PRINTER: "/>
-                    <ComboBox IsEditable="False" MinWidth="150" x:Name="PrinterList" SelectionChanged="PrinterList_OnSelectionChanged"></ComboBox>
-                    <Button Content="PRINT" Click="Print_OnClick"
+                <Button Grid.Row="1" Content="PRINT" Click="Print_OnClick"
                             HorizontalAlignment="Right"/>
-                </StackPanel>
             </Grid>
             <Grid Grid.Column="2">
                 <Grid.RowDefinitions>

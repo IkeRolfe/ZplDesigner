@@ -7,6 +7,10 @@ using Microsoft.Win32;
 using ZplDesigner.Library;
 using RawPrinterUtilitiesLibrary;
 using Label = RawPrinterUtilitiesLibrary.Label;
+using Zebra.Sdk.Printer.Discovery;
+using System.Linq;
+using Zebra.Sdk.Printer;
+using ZplDesigner.Desktop.Models;
 
 namespace ZplDesigner.Desktop
 {
@@ -19,7 +23,8 @@ namespace ZplDesigner.Desktop
         {
             InitializeComponent();
             _labelSpooler = new LabelSpooler();
-            PrinterList.ItemsSource = _labelSpooler.GetAvailablePrinters();
+            //PrinterList.ItemsSource = _labelSpooler.GetAvailablePrinters();
+            PrinterList.ItemsSource = ZebraPrinterHelper.GetConnectedPrinters();
         }
 
         private ZplImage _zplImage;
@@ -81,23 +86,34 @@ namespace ZplDesigner.Desktop
             return bitmapimage;
         }
 
-        private void RenderHtml_OnClick(object sender, RoutedEventArgs e)
+        /*private void RenderHtml_OnClick(object sender, RoutedEventArgs e)
         {
             var html = HtmlText.Text;
             _zplImage = new ZplImage(html);
             RenderZplImage();
-        }
+        }*/
 
         private void Print_OnClick(object sender, RoutedEventArgs e)
         {
-            _labelSpooler.AddLabel(new Label(ZplText.Text));
-            _labelSpooler.PrintQueue();
+            /*var discoveredUsbPrinters = UsbDiscoverer.GetZebraUsbPrinters(new ZebraPrinterFilter());
+            var printers = discoveredUsbPrinters.Select(d => {
+                var conn = d.GetConnection();
+                conn.Open();
+                return ZebraPrinterFactory.GetInstance(conn);
+            });
+            var printer = printers.First();
+            printer.SendCommand(ZplText.Text);*/
+
+            /*_labelSpooler.AddLabel(new Label(ZplText.Text));
+            _labelSpooler.PrintQueue();*/
+            var printer = (Printer)PrinterList.SelectedItem;
+            printer.SendCommand(ZplText.Text);
         }
 
         private void PrinterList_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var printerName = (string)e.AddedItems[0];
-            _labelSpooler.PrinterName = printerName;
+            var printer = (Printer)e.AddedItems[0];
+            PrinterConfig.Printer = printer;
         }
 
         private async void LoadLabelary_OnClick(object sender, RoutedEventArgs e)

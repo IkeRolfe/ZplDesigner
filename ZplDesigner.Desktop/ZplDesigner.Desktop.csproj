@@ -7,8 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Zebra.Printer.Card.SDK" Version="2.15.2634" />
+    <PackageReference Include="Zebra.Printer.SDK" Version="2.15.2634" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RawPrinterUtilitiesLibrary\RawPrinterUtilitiesLibrary.csproj" />
     <ProjectReference Include="..\ZplDesigner.Library\ZplDesigner.Library.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\" />
   </ItemGroup>
 
 </Project>

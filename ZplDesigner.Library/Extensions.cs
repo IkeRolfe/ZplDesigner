@@ -22,5 +22,6 @@ namespace ZplDesigner.Library
             var result = Color.FromArgb(level, level, level);
             return result;
         }
+
     }
 }

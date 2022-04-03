@@ -13,7 +13,8 @@ namespace ZplDesigner.Library
         public static async Task<Bitmap> GetImage(string zpl)
         {
             using var client = new HttpClient();
-            var response = client.PostAsync($@"http://api.labelary.com/v1/printers/8dpmm/labels/4x6/0/",
+            var dimensions = "4x8";
+            var response = client.PostAsync($@"http://api.labelary.com/v1/printers/8dpmm/labels/{dimensions}/0/",
                 new ByteArrayContent(Encoding.UTF8.GetBytes(zpl)));
             
             var image = new Bitmap(await response.Result.Content.ReadAsStreamAsync());
